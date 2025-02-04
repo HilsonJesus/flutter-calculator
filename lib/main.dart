@@ -1,4 +1,3 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:expressions/expressions.dart';
 
@@ -42,6 +41,17 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _result = 'Error';
         }
+      } else if (value == 'x²') {
+        try {
+          final expression = Expression.parse('($_expression) * ($_expression)');
+          final evaluator = const ExpressionEvaluator();
+          final result = evaluator.eval(expression, {});
+          _result = result.toString();
+        } catch (e) {
+          _result = 'Error';
+        }
+      } else if (value == '%') {
+        _expression += '%';
       } else {
         _expression += value;
       }
@@ -120,6 +130,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   _buildButton('C'),
                   _buildButton('='),
                   _buildButton('+'),
+                ],
+              ),
+              Row(
+                children: [
+                  _buildButton('x²'),
+                  _buildButton('%'),
                 ],
               ),
             ],
